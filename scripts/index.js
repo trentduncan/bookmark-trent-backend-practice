@@ -4,12 +4,14 @@
 
 $(function(){
   api.getBookmarks(function(response){
-    response.forEach(bookmark => store.addBookmark(bookmark));
+    response.forEach(bookmark => {
+      bookmark.expanded = false;
+      store.addBookmark(bookmark);
+    });
     bookmarks.render();
   });
+  bookmarks.bindEventListeners();
+  bookmarks.render();
 
 });
 
-api.createBookmark('bookmarktest','https//:www.testurlwooo.com','dsfsfsdfsdfsdsf','5', function(response){
-  console.log(response);
-});

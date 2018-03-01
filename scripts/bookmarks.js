@@ -4,9 +4,10 @@
 
 //eslint-disable-next-line no-unused-vars
 const bookmarks = (function(){
+//   render functions below
   const generateDefaultHeader = function(){
     return `<div class="add-and-filter">
-                <button class="add-bookmark-button" type="button">Add Bookmark</button>
+                <button id="add-bookmark-button">Add Bookmark</button>
                 <select class="filter-bookmark-dropdown">
                     <option value="null">All</option>
                     <option value="1">1</option>
@@ -30,7 +31,7 @@ const bookmarks = (function(){
                     <input id="rating4" type="radio" name="rating" value="4"><label for="rating4">4</label>
                     <input id="rating5" type="radio" name="rating" value="5"><label for="rating5">5</label>
                 </div>
-                <input type="submit" value="Add Bookmark">
+                <button type="submit">Add Bookmark</button>
             </form>`;
   };
 
@@ -63,9 +64,30 @@ const bookmarks = (function(){
     $('.bookmark-list').html(bookmarkItems);
 
   };
+  //   add items to the page
+  const handleDisplayAddForm = function(){
+    $('.add-and-filter-heading').on('click', '#add-bookmark-button', function(){
+      console.log('wired display add form correctly');
+    });
+  };
+  
+  const handleAddBookmarks = function(){
+    $('.add-and-filter-heading').on('submit', '.add-bookmark-form', function(event){
+      event.preventDefault;
+      console.log('wired add item form to submit')
+    });
+  };
+
+
+
+  const bindEventListeners = function(){
+    handleDisplayAddForm();
+    handleAddBookmarks();
+  };
 
   return {
     render,
+    bindEventListeners
   };
 
 }());

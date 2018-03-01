@@ -1,27 +1,27 @@
 'use strict';
 
-/* global cuid */
+/* global */
 
 //eslint-disable-next-line no-unused-vars
 const store = (function(){
   const bookmarks = [
     {title: 'Bookmark1',
-      description: 'Filler descsdfgafgfdsgfdsgdfsgsd',
+      desc: 'Filler descsdfgafgfdsgfdsgdfsgsd',
       url: 'https//:www.testurl.com',
       rating: 5,
       expanded: false,
-      id: cuid()
+      id: 1
     },
     {title: 'Bookmark2',
-      description: 'filler2 descsdfgafgfdsgfdsgdfsgsd',
+      desc: 'filler2 descsdfgafgfdsgfdsgdfsgsd',
       url: 'https//:www.testurl2.com',
       rating: 3,
-      expanded: false,
-      id: cuid()
+      expanded: true,
+      id: 2
     }
   ];
   let ratingFilter = null;
-  let addBookmark = false;
+  let addBookmark = true;
 
 
   return {

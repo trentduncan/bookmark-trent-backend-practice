@@ -1,3 +1,7 @@
 'use strict';
 
-console.log('hello users');
+/* global bookmarks, $ */
+
+$(function(){
+  bookmarks.render();
+});

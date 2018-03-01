@@ -8,8 +8,8 @@
 </head>
 
 <body>
-    <main>
-        <div class="add-and-filter hidden">
+    <section>
+        <div class="add-and-filter">
             <button class="add-bookmark-button" type="button">Add Bookmark</button>
             <select class="filter-bookmark-dropdown">
                 <option value="null">All</option>
@@ -20,7 +20,7 @@
                 <option value="5">5</option>
             </select>
         </div>
-        <form>
+        <form class="add-bookmark-form hidden">
             <input id="title" type="text" name="title" placeholder="Enter Title">
             <input id="description" type="text" name="description" placeholder="Enter Description">
             <input id="url" type="url" name="url" placeholder="Enter URL">
@@ -33,9 +33,18 @@
             </div>
             <input type="submit" value="Add Bookmark">
         </form>
-
-    </main>
-
+    </section>
+    <section class="bookmark-elements">
+        <ul class="bookmark-list">
+            <li class="bookmark-item" id="1">
+                <h2>Bookmark1</h2>
+                Rating: 5
+            </li>
+        </ul>
+    </section>
+    <script type="text/javascript" src="scripts/api.js"></script>
+    <script type="text/javascript" src="scripts/store.js"></script>
+    <script type="text/javascript" src="scripts/bookmarks.js"></script>
     <script type="text/javascript" src="scripts/index.js"></script>
 </body>
 

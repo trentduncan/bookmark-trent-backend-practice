@@ -49,12 +49,13 @@ const bookmarks = (function(){
                     Description: ${bookmark.desc}
                     Rating:${bookmark.rating}
                     Link to this URL: ${bookmark.url}
+                    <button name="button">Delete</button>
                 </div>
             </li>`;
   };
 
   const render = function(){
-    let header = (store.addBookmark) ? generateAddItemHeader() : generateDefaultHeader();
+    let header = (store.addFormDisplayed) ? generateAddItemHeader() : generateDefaultHeader();
     let bookmarkItems = store.bookmarks.map(bookmark => {
       return bookmark.expanded ? generateExpandedBookmarkItem(bookmark) : generateDefaultBookmarkItem(bookmark);
     });

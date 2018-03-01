@@ -21,12 +21,17 @@ const store = (function(){
     }
   ];
   let ratingFilter = null;
-  let addBookmark = true;
+  let addFormDisplayed = true;
+
+  const addBookmark = function(bookmark){
+    this.bookmarks.push(bookmark);
+  };
 
 
   return {
     bookmarks,
     ratingFilter,
+    addFormDisplayed,
     addBookmark
   };
 }());

@@ -1,7 +1,11 @@
 'use strict';
 
-/* global bookmarks, $ */
+/* global bookmarks, $, store, api */
 
 $(function(){
-  bookmarks.render();
+  api.getBookmarks(function(response){
+    response.forEach(bookmark => store.addBookmark(bookmark));
+    bookmarks.render();
+  });
+
 });

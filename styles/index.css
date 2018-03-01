@@ -20,6 +20,7 @@
 
   .bookmark-list {
     list-style: none;
+    padding: 0px;
   }
 
   h2 {
@@ -28,4 +29,8 @@
 
   button:hover {
     cursor: pointer;
+  }
+
+  .bookmark-item {
+      border: solid black 2px;
   }

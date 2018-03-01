@@ -21,7 +21,7 @@ const store = (function(){
     }
   ];
   let ratingFilter = null;
-  let addBookmark = true;
+  let addBookmark = false;
 
 
   return {

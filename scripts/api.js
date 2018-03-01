@@ -10,8 +10,28 @@ const api = (function(){
     $.getJSON(`${BASE_URL}/bookmarks`, callback);
   };
 
+  const createBookmark= function(title, url, desc, rating, callback){
+    const bookmark = {
+      title,
+      url,
+      desc,
+      rating
+    };
+    const newBookmark = JSON.stringify(bookmark);
+
+    $.ajax({
+      'url':`${BASE_URL}/bookmarks`,
+      'method': 'POST',
+      'contentType': 'application/json',
+      'data': newBookmark,
+      'success': callback
+    });
+  };
+  
+
   return {
     getBookmarks,
+    createBookmark
   };
 
 }());

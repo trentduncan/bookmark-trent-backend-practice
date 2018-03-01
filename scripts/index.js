@@ -9,3 +9,7 @@ $(function(){
   });
 
 });
+
+api.createBookmark('bookmarktest','https//:www.testurlwooo.com','dsfsfsdfsdfsdsf','5', function(response){
+  console.log(response);
+});

@@ -13,6 +13,11 @@ const store = (function(){
     this.addFormDisplayed = !this.addFormDisplayed;
   }; 
 
+  const toggleExpand = function(id){
+    const targetedBookmark = this.bookmarks.find(obj => obj.id === id);
+    targetedBookmark.expanded = !targetedBookmark.expanded;
+  };
+
 
   return {
     bookmarks: [],
@@ -20,6 +25,7 @@ const store = (function(){
     addFormDisplayed: false,
     
     addBookmark,
-    toggleAddFormDisplayed
+    toggleAddFormDisplayed,
+    toggleExpand
   };
 }());

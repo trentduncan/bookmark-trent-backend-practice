@@ -36,7 +36,7 @@ const bookmarks = (function(){
   };
 
   const generateDefaultBookmarkItem = function(bookmark) {
-    return `<li class="bookmark-item" id="${bookmark.id}">
+    return `<li class="bookmark-item" data-item-id="${bookmark.id}">
                 <h2>${bookmark.title}</h2>
                 Rating: ${bookmark.rating}
             </li>`;
@@ -44,7 +44,7 @@ const bookmarks = (function(){
 
   
   const generateExpandedBookmarkItem = function(bookmark){
-    return `<li class="bookmark-item" id="${bookmark.id}">
+    return `<li class="bookmark-item" data-item-id="${bookmark.id}">
                 <h2>${bookmark.title}</h2>
                 <div class="bookmark-expanded-content">
                     Description: ${bookmark.desc}
@@ -88,11 +88,26 @@ const bookmarks = (function(){
     });
   };
 
+  //   expand items 
+
+  const findIdFromElement = function(item){
+    return $(item).attr('data-item-id');
+  };
+
+  const handleExpandItem = function(){
+    $('.bookmark-list').on('click', '.bookmark-item', function(event){
+      const bookmarkId = findIdFromElement(event.currentTarget);
+      store.toggleExpand(bookmarkId);
+      render();
+    });
+  };
+
 
 
   const bindEventListeners = function(){
     handleDisplayAddForm();
     handleAddBookmarks();
+    handleExpandItem();
   };
 
   return {

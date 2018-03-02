@@ -24,13 +24,13 @@ const store = (function(){
   };
 
   const changeRatingFilter = function(rating){
-    this.ratingFilter = rating;
+    this.ratingFilter = rating === 'all' ? rating : parseInt(rating);
   };
 
 
   return {
     bookmarks: [],
-    ratingFilter: null,
+    ratingFilter: 'all',
     addFormDisplayed: false,
     
     addBookmark,

@@ -6,15 +6,16 @@
 const bookmarks = (function(){
 //   render functions below
   const generateDefaultHeader = function(){
+    
     return `<div class="add-and-filter">
                 <button id="add-bookmark-button">Add Bookmark</button>
                 <select class="filter-bookmark-dropdown">
-                    <option value="null">All</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
+                    <option value="all" ${store.ratingFilter === 'all' ? 'selected': ''}>All</option>
+                    <option value="1" ${store.ratingFilter === 1 ? 'selected': ''}>1</option>
+                    <option value="2" ${store.ratingFilter === 2 ? 'selected': ''}>2</option>
+                    <option value="3" ${store.ratingFilter === 3 ? 'selected': ''}>3</option>
+                    <option value="4" ${store.ratingFilter === 4 ? 'selected': ''}>4</option>
+                    <option value="5" ${store.ratingFilter === 5 ? 'selected': ''}>5</option>
                 </select>
             </div>`;
   };
@@ -57,7 +58,8 @@ const bookmarks = (function(){
 
   const render = function(){
     let header = (store.addFormDisplayed) ? generateAddItemHeader() : generateDefaultHeader();
-    let bookmarkItems = store.bookmarks.map(bookmark => {
+    let currentStore = (store.ratingFilter === 'all') ? store.bookmarks : store.bookmarks.filter(obj => obj.rating >= store.ratingFilter);
+    let bookmarkItems = currentStore.map(bookmark => {
       return bookmark.expanded ? generateExpandedBookmarkItem(bookmark) : generateDefaultBookmarkItem(bookmark);
     });
     $('.add-and-filter-heading').html(header);
@@ -117,8 +119,14 @@ const bookmarks = (function(){
   };
 
   //   rating filter
-//   change render function to filter based off of the ratingFilter in the store
-// .change event listener for the dropdown menu
+  
+  const handleRatingFilter = function(){
+    $('.add-and-filter-heading').on('change', '.filter-bookmark-dropdown', function(){
+      const filterValue = $('.filter-bookmark-dropdown').val();
+      store.changeRatingFilter(filterValue);
+      render();
+    });
+  };
 
 
 
@@ -127,6 +135,7 @@ const bookmarks = (function(){
     handleAddBookmarks();
     handleExpandItem();
     handleDeleteBookmark();
+    handleRatingFilter();
   };
 
   return {

@@ -27,11 +27,19 @@ const api = (function(){
       'success': callback
     });
   };
-  
+
+  const deleteBookmark = function(id, callback){
+    $.ajax({
+      'url': `${BASE_URL}/bookmarks/${id}`,
+      'method': 'DELETE',
+      'success': callback
+    });
+  };
 
   return {
     getBookmarks,
-    createBookmark
+    createBookmark,
+    deleteBookmark
   };
 
 }());

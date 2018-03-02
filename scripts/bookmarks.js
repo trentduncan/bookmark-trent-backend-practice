@@ -50,7 +50,7 @@ const bookmarks = (function(){
                     Description: ${bookmark.desc}
                     Rating:${bookmark.rating}
                     Link to this URL: ${bookmark.url}
-                    <button name="button">Delete</button>
+                    <button class="delete-button" name="button">Delete</button>
                 </div>
             </li>`;
   };
@@ -91,7 +91,9 @@ const bookmarks = (function(){
   //   expand items 
 
   const findIdFromElement = function(item){
-    return $(item).attr('data-item-id');
+    return $(item)
+      .closest('.bookmark-item')
+      .attr('data-item-id');
   };
 
   const handleExpandItem = function(){
@@ -102,12 +104,25 @@ const bookmarks = (function(){
     });
   };
 
+  //   delete items
+
+  const handleDeleteBookmark = function(){
+    $('.bookmark-list').on('click', '.delete-button', function(event){
+      const bookmarkId = findIdFromElement(event.currentTarget);
+      api.deleteBookmark(bookmarkId, function(){
+        store.deleteBookmark(bookmarkId);
+        render();
+      });
+    });
+  };
+
 
 
   const bindEventListeners = function(){
     handleDisplayAddForm();
     handleAddBookmarks();
     handleExpandItem();
+    handleDeleteBookmark();
   };
 
   return {

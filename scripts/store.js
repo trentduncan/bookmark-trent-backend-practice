@@ -18,6 +18,11 @@ const store = (function(){
     targetedBookmark.expanded = !targetedBookmark.expanded;
   };
 
+  const deleteBookmark = function(id){
+    const filteredBookmarks = this.bookmarks.filter(obj => obj.id !== id);
+    this.bookmarks = filteredBookmarks;
+  };
+
 
   return {
     bookmarks: [],
@@ -26,6 +31,7 @@ const store = (function(){
     
     addBookmark,
     toggleAddFormDisplayed,
-    toggleExpand
+    toggleExpand,
+    deleteBookmark
   };
 }());

@@ -22,8 +22,8 @@ const bookmarks = (function(){
 
   const generateAddItemHeader = function(){
     return `<form id="add-bookmark-form">
-                <input id="title" type="text" name="title" placeholder="Enter Title">
-                <input id="description" type="text" name="description" placeholder="Enter Description">
+                <input id="title" type="text" name="title" maxlength="30" placeholder="Enter Title">
+                <input id="description" type="text" maxlength="45" name="description" placeholder="Enter Description">
                 <input id="url" type="url" name="url" placeholder="Enter URL">
                 <div class="rating-radio">
                     <input id="rating1" type="radio" name="rating" value="1" checked><label for="rating1">1</label>
@@ -33,6 +33,7 @@ const bookmarks = (function(){
                     <input id="rating5" type="radio" name="rating" value="5"><label for="rating5">5</label>
                 </div>
                 <button type="submit">Add Bookmark</button>
+                <button class="cancel-button" type="button" name="cancel-button">Cancel</button>
             </form>`;
   };
 
@@ -57,10 +58,12 @@ const bookmarks = (function(){
     return `<li class="bookmark-item expanded" data-item-id="${bookmark.id}">
                 <h2>${bookmark.title}</h2>
                 <div class="bookmark-expanded-content">
-                    Description: ${bookmark.desc}
-                    Rating:${bookmark.rating}
-                    Link to this URL: ${bookmark.url}
-                    <button class="delete-button" name="button">Delete</button>
+                    <p>${bookmark.desc === '' ? 'No Description' : bookmark.desc}</p>
+                    <div class="expanded-rating">Rating ${generateStarRating(bookmark.rating)}</div>
+                    <div class="link-del-buttons">
+                        <a href="${bookmark.url}" target="_blank"><button class="link-button" name="link-button">Link to Page</button></a>
+                        <button class="delete-button" name="button">Delete</button>
+                    </div>
                 </div>
             </li>`;
   };
@@ -81,7 +84,13 @@ const bookmarks = (function(){
       render();
     });
   };
-  
+  const handleCancelAdd = function(){
+    $('.add-and-filter-heading').on('click', '.cancel-button', function(){
+      store.toggleAddFormDisplayed();
+      render();
+    });
+  };
+
   const handleAddBookmarks = function(){
     $('.add-and-filter-heading').on('submit', '#add-bookmark-form', function(event){
       event.preventDefault();
@@ -141,10 +150,12 @@ const bookmarks = (function(){
 
   const bindEventListeners = function(){
     handleDisplayAddForm();
+    handleCancelAdd();
     handleAddBookmarks();
     handleExpandItem();
     handleDeleteBookmark();
     handleRatingFilter();
+    
   };
 
   return {

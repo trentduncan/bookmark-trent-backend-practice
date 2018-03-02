@@ -49,7 +49,7 @@ const bookmarks = (function(){
   const generateDefaultBookmarkItem = function(bookmark) {
     return `<li class="bookmark-item" data-item-id="${bookmark.id}">
                 <h2>${bookmark.title}</h2>
-                <p>Rating ${generateStarRating(bookmark.rating)}</p>
+                <p class="rating">${generateStarRating(bookmark.rating)}</p>
             </li>`;
   }; 
 
@@ -59,7 +59,7 @@ const bookmarks = (function(){
                 <h2>${bookmark.title}</h2>
                 <div class="bookmark-expanded-content">
                     <p>${bookmark.desc === '' ? 'No Description' : bookmark.desc}</p>
-                    <div class="expanded-rating">Rating ${generateStarRating(bookmark.rating)}</div>
+                    <div class="rating expanded-rating">Rating ${generateStarRating(bookmark.rating)}</div>
                     <div class="link-del-buttons">
                         <a href="${bookmark.url}" target="_blank"><button class="link-button" name="link-button">Link to Page</button></a>
                         <button class="delete-button" name="button">Delete</button>

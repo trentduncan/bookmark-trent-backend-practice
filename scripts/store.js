@@ -23,6 +23,10 @@ const store = (function(){
     this.bookmarks = filteredBookmarks;
   };
 
+  const changeRatingFilter = function(rating){
+    this.ratingFilter = rating;
+  };
+
 
   return {
     bookmarks: [],
@@ -32,6 +36,7 @@ const store = (function(){
     addBookmark,
     toggleAddFormDisplayed,
     toggleExpand,
-    deleteBookmark
+    deleteBookmark,
+    changeRatingFilter
   };
 }());

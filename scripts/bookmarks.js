@@ -116,6 +116,10 @@ const bookmarks = (function(){
     });
   };
 
+  //   rating filter
+//   change render function to filter based off of the ratingFilter in the store
+// .change event listener for the dropdown menu
+
 
 
   const bindEventListeners = function(){

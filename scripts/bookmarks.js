@@ -36,16 +36,25 @@ const bookmarks = (function(){
             </form>`;
   };
 
+  const generateStarRating = function(rating){
+    const filledStar = '&#9733;';
+    const hollowStar = '&#9734;';
+    const numberFilledStars = filledStar.repeat(rating);
+    const numberHollowStars = hollowStar.repeat(5 - rating);
+    return numberFilledStars + numberHollowStars;
+
+  };
+  
   const generateDefaultBookmarkItem = function(bookmark) {
     return `<li class="bookmark-item" data-item-id="${bookmark.id}">
                 <h2>${bookmark.title}</h2>
-                Rating: ${bookmark.rating}
+                <p>Rating ${generateStarRating(bookmark.rating)}</p>
             </li>`;
   }; 
 
   
   const generateExpandedBookmarkItem = function(bookmark){
-    return `<li class="bookmark-item" data-item-id="${bookmark.id}">
+    return `<li class="bookmark-item expanded" data-item-id="${bookmark.id}">
                 <h2>${bookmark.title}</h2>
                 <div class="bookmark-expanded-content">
                     Description: ${bookmark.desc}

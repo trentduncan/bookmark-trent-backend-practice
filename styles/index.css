@@ -5,18 +5,20 @@
   body {
     font-family: 'Roboto', sans-serif;
     font-size: 12px;
+    color: gray;
   }
 
   section {
       width: 500px;
       margin-left: auto;
       margin-right: auto;
-      margin-top: 75px;
+      margin-top: 25px;
   }
 
   .hidden {
       display: none;
   }
+  
 
   .bookmark-list {
     list-style: none;
@@ -24,13 +26,45 @@
   }
 
   h2 {
-      margin-bottom: 0;
+      margin: 0;
+      padding:4px 0 0 4px;
+  }
+  p {
+      margin: 0;
+      padding:12px 0 0 4px;
   }
 
-  button:hover {
+
+  button:hover , li:hover {
     cursor: pointer;
   }
 
   .bookmark-item {
       border: solid black 2px;
+      border-radius:6px;
+      margin-bottom: 20px;
+      height: 60px; 
+      
   }
+  .expanded {
+      height:100px;
+  }
+
+  #add-bookmark-button {
+    font-size: 24px;
+  }
+  #add-bookmark-button:hover {
+    box-shadow: 0 4px 6px 0 rgba(0,0,0,0.24), 0 7px 8px 0 rgba(0,0,0,0.19);
+  }
+
+  button {
+    border: 2px solid aquamarine;
+    border-radius: 12px;
+  }
+  
+
+  .add-and-filter {
+    text-align: center;
+  }
+
+  

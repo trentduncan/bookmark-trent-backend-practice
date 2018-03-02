@@ -1,6 +1,6 @@
 'use strict';
 
-/* global store, $ */
+/* global store, $, api */
 
 //eslint-disable-next-line no-unused-vars
 const bookmarks = (function(){
@@ -20,12 +20,12 @@ const bookmarks = (function(){
   };
 
   const generateAddItemHeader = function(){
-    return `<form class="add-bookmark-form">
+    return `<form id="add-bookmark-form">
                 <input id="title" type="text" name="title" placeholder="Enter Title">
                 <input id="description" type="text" name="description" placeholder="Enter Description">
                 <input id="url" type="url" name="url" placeholder="Enter URL">
                 <div class="rating-radio">
-                    <input id="rating1" type="radio" name="rating" value="1"><label for="rating1">1</label>
+                    <input id="rating1" type="radio" name="rating" value="1" checked><label for="rating1">1</label>
                     <input id="rating2" type="radio" name="rating" value="2"><label for="rating2">2</label>
                     <input id="rating3" type="radio" name="rating" value="3"><label for="rating3">3</label>
                     <input id="rating4" type="radio" name="rating" value="4"><label for="rating4">4</label>
@@ -62,19 +62,29 @@ const bookmarks = (function(){
     });
     $('.add-and-filter-heading').html(header);
     $('.bookmark-list').html(bookmarkItems);
-
   };
   //   add items to the page
   const handleDisplayAddForm = function(){
     $('.add-and-filter-heading').on('click', '#add-bookmark-button', function(){
-      console.log('wired display add form correctly');
+      store.toggleAddFormDisplayed();
+      render();
     });
   };
   
   const handleAddBookmarks = function(){
-    $('.add-and-filter-heading').on('submit', '.add-bookmark-form', function(event){
-      event.preventDefault;
-      console.log('wired add item form to submit')
+    $('.add-and-filter-heading').on('submit', '#add-bookmark-form', function(event){
+      event.preventDefault();
+      const newTitle = $('#title').val();
+      const newDesc = $('#description').val();
+      const newUrl = $('#url').val();
+      const newRating = $('input[type="radio"][name="rating"]:checked').val();
+
+      api.createBookmark(newTitle, newUrl, newDesc, newRating, function(response){
+        response.expanded = false;
+        store.addBookmark(response);
+        store.toggleAddFormDisplayed();
+        render();
+      });
     });
   };
 

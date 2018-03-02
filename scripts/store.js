@@ -9,14 +9,17 @@ const store = (function(){
     this.bookmarks.push(bookmark);
   };
 
-//   const 
+  const toggleAddFormDisplayed = function(){
+    this.addFormDisplayed = !this.addFormDisplayed;
+  }; 
 
 
   return {
     bookmarks: [],
     ratingFilter: null,
-    addFormDisplayed: true,
+    addFormDisplayed: false,
     
-    addBookmark
+    addBookmark,
+    toggleAddFormDisplayed
   };
 }());

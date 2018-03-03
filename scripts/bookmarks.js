@@ -22,9 +22,9 @@ const bookmarks = (function(){
 
   const generateAddItemHeader = function(){
     return `<form id="add-bookmark-form">
-                <input id="title" type="text" name="title" maxlength="30" placeholder="Enter Title">
+                <input id="title" type="text" name="title" maxlength="30" placeholder="Enter Title" required>
                 <input id="description" type="text" maxlength="45" name="description" placeholder="Enter Description">
-                <input id="url" type="url" name="url" placeholder="Enter URL">
+                <input id="url" type="url" name="url" placeholder="Enter URL" required>
                 <div class="rating-radio">
                     <input id="rating1" type="radio" name="rating" value="1" checked><label for="rating1">1</label>
                     <input id="rating2" type="radio" name="rating" value="2"><label for="rating2">2</label>
@@ -144,6 +144,16 @@ const bookmarks = (function(){
     });
   };
 
+  const handleDeleteBookmarkForKeyboardUsers = function(){
+    $('.bookmark-list').on('keypress', '.delete-button', function(event){
+      const bookmarkId = findIdFromElement(event.currentTarget);
+      api.deleteBookmark(bookmarkId, function(){
+        store.deleteBookmark(bookmarkId);
+        render();
+      });
+    });
+  };
+
   //   rating filter
   
   const handleRatingFilter = function(){
@@ -164,6 +174,7 @@ const bookmarks = (function(){
     handleDeleteBookmark();
     handleRatingFilter();
     handleExpandItemForKeyboardUsers();
+    handleDeleteBookmarkForKeyboardUsers();
     
   };
 

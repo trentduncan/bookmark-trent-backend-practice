@@ -47,7 +47,7 @@ const bookmarks = (function(){
   };
   
   const generateDefaultBookmarkItem = function(bookmark) {
-    return `<li class="bookmark-item" data-item-id="${bookmark.id}">
+    return `<li role="button" tabindex="0" class="bookmark-item" data-item-id="${bookmark.id}">
                 <h2>${bookmark.title}</h2>
                 <p class="rating">${generateStarRating(bookmark.rating)}</p>
             </li>`;
@@ -55,7 +55,7 @@ const bookmarks = (function(){
 
   
   const generateExpandedBookmarkItem = function(bookmark){
-    return `<li class="bookmark-item expanded" data-item-id="${bookmark.id}">
+    return `<li role="button" tabindex="0" class="bookmark-item expanded" data-item-id="${bookmark.id}">
                 <h2>${bookmark.title}</h2>
                 <div class="bookmark-expanded-content">
                     <p>${bookmark.desc === '' ? 'No Description' : bookmark.desc}</p>
@@ -124,6 +124,14 @@ const bookmarks = (function(){
     });
   };
 
+  const handleExpandItemForKeyboardUsers = function(){
+    $('.bookmark-list').on('keypress', '.bookmark-item', function(event){
+      const bookmarkId = findIdFromElement(event.currentTarget);
+      store.toggleExpand(bookmarkId);
+      render();
+    });
+  };
+
   //   delete items
 
   const handleDeleteBookmark = function(){
@@ -155,6 +163,7 @@ const bookmarks = (function(){
     handleExpandItem();
     handleDeleteBookmark();
     handleRatingFilter();
+    handleExpandItemForKeyboardUsers();
     
   };
 

@@ -56,10 +56,10 @@ const bookmarks = (function(){
   
   const generateExpandedBookmarkItem = function(bookmark){
     return `<li role="button" tabindex="0" class="bookmark-item expanded" data-item-id="${bookmark.id}">
-                <h2>${bookmark.title}</h2>
+                <h2>${bookmark.title}</h2><span class="edit-box"><i class="far fa-edit"></i></span>
                 <div class="bookmark-expanded-content">
                     <p>${bookmark.desc === '' ? 'No Description' : bookmark.desc}</p>
-                    <div class="rating expanded-rating">Rating ${generateStarRating(bookmark.rating)}</div>
+                    <div class="rating expanded-rating">${generateStarRating(bookmark.rating)}</div>
                     <div class="link-del-buttons">
                         <a href="${bookmark.url}" target="_blank"><button class="link-button" name="link-button">Link to Page</button></a>
                         <button class="delete-button" name="button">Delete</button>

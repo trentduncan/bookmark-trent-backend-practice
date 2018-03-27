@@ -58,7 +58,7 @@
   }
 
 
-  button:hover , li:hover {
+  button:hover , li:hover, .filter-bookmark-dropdown:hover {
     cursor: pointer;
   }
 
@@ -107,7 +107,10 @@
 
   .rating-radio {
     display: inline-block;
+    font-family: 'Lora', serif;
+    font-size: 20px;
   }
+
 
   .align-right {
       text-align: right;
@@ -119,6 +122,10 @@
     background-color: #fffae6;
   }
   #add-bookmark-button:hover {
+    box-shadow: 0 4px 6px 0 rgba(0,0,0,0.24), 0 7px 8px 0 rgba(0,0,0,0.19);
+  }
+
+  .filter-bookmark-dropdown:hover {
     box-shadow: 0 4px 6px 0 rgba(0,0,0,0.24), 0 7px 8px 0 rgba(0,0,0,0.19);
   }
 
@@ -138,6 +145,20 @@
   }
   
   .edit-box {
-    padding-left: 360px;
-    color: #6c8293;
+    /* padding-left: 360px; */
+    /* color: #6c8293; */
+    font-size: 22px;
+  }
+
+  .input-text {
+    width: 500px;
+    font-size: 20px;
+    font-family: 'Lora', serif;
+    background-color: #fffae6;
+  }
+
+  .add-form-buttons {
+    font-size: 20px;
+    border: solid	#838FA7 2px;
+    background-color: #fffae6;
   }

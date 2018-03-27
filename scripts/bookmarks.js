@@ -22,18 +22,18 @@ const bookmarks = (function(){
 
   const generateAddItemHeader = function(){
     return `<form id="add-bookmark-form">
-                <input id="title" type="text" name="title" maxlength="30" placeholder="Enter Title" required>
-                <input id="description" type="text" maxlength="45" name="description" placeholder="Enter Description">
-                <input id="url" type="url" name="url" placeholder="Enter URL" required>
+                <input class="input-text" id="title" type="text" name="title" maxlength="30" placeholder="Enter Title" required>
+                <input class="input-text" id="description" type="text" maxlength="45" name="description" placeholder="Enter Description">
+                <input class="input-text" id="url" type="url" name="url" placeholder="Enter URL" required>
                 <div class="rating-radio">
-                    <input id="rating1" type="radio" name="rating" value="1" checked><label for="rating1">1</label>
-                    <input id="rating2" type="radio" name="rating" value="2"><label for="rating2">2</label>
-                    <input id="rating3" type="radio" name="rating" value="3"><label for="rating3">3</label>
-                    <input id="rating4" type="radio" name="rating" value="4"><label for="rating4">4</label>
-                    <input id="rating5" type="radio" name="rating" value="5"><label for="rating5">5</label>
+                    <input class="rating-radio" id="rating1" type="radio" name="rating" value="1" checked><label for="rating1">1</label>
+                    <input class="rating-radio" id="rating2" type="radio" name="rating" value="2"><label for="rating2">2</label>
+                    <input class="rating-radio" id="rating3" type="radio" name="rating" value="3"><label for="rating3">3</label>
+                    <input class="rating-radio" id="rating4" type="radio" name="rating" value="4"><label for="rating4">4</label>
+                    <input class="rating-radio" id="rating5" type="radio" name="rating" value="5"><label for="rating5">5</label>
                 </div>
-                <button type="submit">Add Bookmark</button>
-                <button class="cancel-button" type="button" name="cancel-button">Cancel</button>
+                <button class="add-form-buttons" type="submit">Add Bookmark</button>
+                <button class="cancel-button add-form-buttons" type="button" name="cancel-button">Cancel</button>
             </form>`;
   };
 
@@ -56,11 +56,12 @@ const bookmarks = (function(){
   
   const generateExpandedBookmarkItem = function(bookmark){
     return `<li role="button" tabindex="0" class="bookmark-item expanded" data-item-id="${bookmark.id}">
-                <h2>${bookmark.title}</h2><span class="edit-box"><i class="far fa-edit"></i></span>
+                <h2>${bookmark.title}</h2>
                 <div class="bookmark-expanded-content">
                     <p>${bookmark.desc === '' ? 'No Description' : bookmark.desc}</p>
                     <div class="rating expanded-rating">${generateStarRating(bookmark.rating)}</div>
                     <div class="link-del-buttons">
+                        <span class="edit-box"><i class="far fa-edit"></i></span>
                         <a href="${bookmark.url}" target="_blank"><button class="link-button" name="link-button">Link to Page</button></a>
                         <button class="delete-button" name="button">Delete</button>
                     </div>

@@ -121,11 +121,7 @@
     border-color: #838FA7;
     background-color: #fffae6;
   }
-  #add-bookmark-button:hover {
-    box-shadow: 0 4px 6px 0 rgba(0,0,0,0.24), 0 7px 8px 0 rgba(0,0,0,0.19);
-  }
-
-  .filter-bookmark-dropdown:hover {
+  #add-bookmark-button:hover, .filter-bookmark-dropdown:hover {
     box-shadow: 0 4px 6px 0 rgba(0,0,0,0.24), 0 7px 8px 0 rgba(0,0,0,0.19);
   }
 

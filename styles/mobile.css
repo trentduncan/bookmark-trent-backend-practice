@@ -1,0 +1,19 @@
+@media only screen and (max-width: 640px) {
+    
+    .link-del-buttons {
+        display: block;
+        text-align: center;
+        width: 500px;
+    }
+    .bookmark-item {
+        text-align: center; 
+        height: 75px;
+    }
+    .expanded {
+        height: 145px;
+        font-size: 20px;
+    }
+    body {
+        font-size: 16px;
+    }
+    }

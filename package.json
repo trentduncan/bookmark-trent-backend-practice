@@ -1,0 +1,19 @@
+{
+  "name": "bookmark-duncan-node-practice",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trentduncan/bookmark-trent-backend-practice.git"
+  },
+  "author": "Trent Duncan",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3",
+    "mongoose": "^5.0.12",
+    "morgan": "^1.9.0"
+  }
+}

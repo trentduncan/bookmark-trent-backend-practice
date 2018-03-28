@@ -3,7 +3,7 @@
 const express = require('express');
 const router = express.Router();
 
-// const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 const Bookmark = require('../models/bookmark');
 
@@ -13,6 +13,41 @@ router.get('/bookmarks', (req, res, next) => {
       res.json(results);
     })
     .catch(next);
+});
+
+router.put('/bookmarks/:id', (req, res, next) => {
+  const {id} = req.params;
+  const {title, url, desc, rating} = req.body;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    const err = new Error('The `id` is not valid');
+    err.status = 400;
+    return next(err);
+  }
+  if (!title) {
+    const err = new Error('Missing `title` in request body');
+    err.status = 400;
+    return next(err);
+  }
+  if (!url) {
+    const err = new Error('Missing `url` in request body');
+    err.status = 400;
+    return next(err);
+  }
+
+  const updateItem = {title, url, desc, rating};
+  
+  Bookmark.findByIdAndUpdate(id, updateItem, {new: true})
+    .then(result => {
+      if (result) {
+        res.json(result);
+      } else {
+        next();
+      }
+    })
+    .catch(err => {
+      next(err);
+    });
 });
 
 router.post('/bookmarks', ( req, res, next) => {

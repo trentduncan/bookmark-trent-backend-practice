@@ -1,0 +1,23 @@
+[
+    {
+        "_id": "000000000000000000000000",
+        "title": "Youtube",
+        "url" : "http://youtube.com",
+        "desc": "Video Sharing Website",
+        "rating": "5"
+    },
+    {
+        "_id": "000000000000000000000001",
+        "title": "Facebook",
+        "url" : "http://facebook.com",
+        "desc": "Social Media Hub",
+        "rating": "3"
+    },
+    {
+        "_id": "000000000000000000000002",
+        "title": "Dictionary",
+        "url" : "http://dictionary.com",
+        "desc": "Online dictionary",
+        "rating": "1"
+    }
+]

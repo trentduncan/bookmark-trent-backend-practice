@@ -72,9 +72,9 @@ const bookmarks = (function(){
   const generateEditBookmarkItem = function(bookmark){
     return `<li role="button" tabindex="0" class="bookmark-item expanded" data-item-id="${bookmark.id}">
               <form class="edit-form">
-                <input class="input-text" id="title${bookmark.id}" type="text" name="title" maxlength="30" value="${bookmark.title}" required>
+                <input class="input-text edit-input" id="title${bookmark.id}" type="text" name="title" maxlength="30" value="${bookmark.title}" required>
                 <div class="bookmark-expanded-content">
-                <input class="input-text" id="desc${bookmark.id}" type="text" maxlength="45" name="description" value="${bookmark.desc === '' ? 'No Description' : bookmark.desc}">
+                <input class="input-text edit-input" id="desc${bookmark.id}" type="text" maxlength="45" name="description" value="${bookmark.desc === '' ? 'No Description' : bookmark.desc}">
                 <div class="rating-radio">
                   <input class="rating-radio" id="rating1${bookmark.id}" type="radio" name="rating${bookmark.id}" value="1"${(bookmark.rating === 1) ? ' checked' : ''}><label for="rating1">1</label>
                   <input class="rating-radio" id="rating2${bookmark.id}" type="radio" name="rating${bookmark.id}" value="2"${(bookmark.rating === 2) ? ' checked' : ''}><label for="rating2">2</label>
@@ -199,12 +199,7 @@ const bookmarks = (function(){
   const handleSubmitEdit = function(){
     $('.bookmark-list').on('keyup', '.edit-form', function(event){
       const bookmarkId = findIdFromElement(event.currentTarget);
-
-      const title = $(`#title${bookmarkId}`).val();
-      const desc = $(`#desc${bookmarkId}`).val();
-      const rating = $(`input[type="radio"][name="rating${bookmarkId}"]:checked`).val();
-
-      const updatedBookmark = {title, desc, rating: Number(rating)};
+      const updatedBookmark = collectUserEditData(bookmarkId);
       store.updateBookmark(bookmarkId, updatedBookmark);
     });
   };

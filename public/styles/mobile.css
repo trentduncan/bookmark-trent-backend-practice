@@ -8,6 +8,10 @@
     .link-del-buttons.edit-mode-del-link-buttons {
         width: 500px;
     }
+    .edit-input{
+        text-align: center;
+    }
+
     .bookmark-item {
         text-align: center; 
         height: 75px;

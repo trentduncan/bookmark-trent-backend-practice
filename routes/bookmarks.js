@@ -17,7 +17,7 @@ router.get('/bookmarks', (req, res, next) => {
 
 router.put('/bookmarks/:id', (req, res, next) => {
   const {id} = req.params;
-  const {title, url, desc, rating} = req.body;
+  const {title, desc, rating} = req.body;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     const err = new Error('The `id` is not valid');
@@ -29,13 +29,8 @@ router.put('/bookmarks/:id', (req, res, next) => {
     err.status = 400;
     return next(err);
   }
-  if (!url) {
-    const err = new Error('Missing `url` in request body');
-    err.status = 400;
-    return next(err);
-  }
-
-  const updateItem = {title, url, desc, rating};
+  
+  const updateItem = {title, desc, rating};
   
   Bookmark.findByIdAndUpdate(id, updateItem, {new: true})
     .then(result => {

@@ -5,6 +5,9 @@
         text-align: center;
         width: 500px;
     }
+    .link-del-buttons.edit-mode-del-link-buttons {
+        width: 500px;
+    }
     .bookmark-item {
         text-align: center; 
         height: 75px;

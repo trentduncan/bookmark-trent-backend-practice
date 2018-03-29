@@ -18,6 +18,17 @@ const store = (function(){
     targetedBookmark.expanded = !targetedBookmark.expanded;
   };
 
+  const toggleEdit = function(id){
+    const targetedBookmark = this.bookmarks.find(obj => obj.id === id);
+    targetedBookmark.editMode = !targetedBookmark.editMode;
+  };
+
+  const updateBookmark = function(id, updatedBookmark){
+    const targetedBookmark = this.bookmarks.find(obj => obj.id === id);
+    Object.assign(targetedBookmark, updatedBookmark);
+
+  };
+
   const deleteBookmark = function(id){
     const filteredBookmarks = this.bookmarks.filter(obj => obj.id !== id);
     this.bookmarks = filteredBookmarks;
@@ -37,6 +48,8 @@ const store = (function(){
     toggleAddFormDisplayed,
     toggleExpand,
     deleteBookmark,
-    changeRatingFilter
+    changeRatingFilter,
+    toggleEdit,
+    updateBookmark
   };
 }());

@@ -37,10 +37,23 @@ const api = (function(){
     });
   };
 
+  const updateBookmark = function(id, bookmark){
+    const updatedBookmark = JSON.stringify(bookmark);
+
+    $.ajax({
+      'url':`${BASE_URL}/bookmarks/${id}`,
+      'method': 'PUT',
+      'contentType': 'application/json',
+      'data': updatedBookmark
+      // 'success': callback
+    });
+  };
+
   return {
     getBookmarks,
     createBookmark,
-    deleteBookmark
+    deleteBookmark,
+    updateBookmark
   };
 
 }());

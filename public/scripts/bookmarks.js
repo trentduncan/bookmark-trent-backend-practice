@@ -69,11 +69,42 @@ const bookmarks = (function(){
             </li>`;
   };
 
+  const generateEditBookmarkItem = function(bookmark){
+    return `<li role="button" tabindex="0" class="bookmark-item expanded" data-item-id="${bookmark.id}">
+              <form class="edit-form">
+                <input class="input-text" id="title${bookmark.id}" type="text" name="title" maxlength="30" value="${bookmark.title}" required>
+                <div class="bookmark-expanded-content">
+                <input class="input-text" id="desc${bookmark.id}" type="text" maxlength="45" name="description" value="${bookmark.desc === '' ? 'No Description' : bookmark.desc}">
+                <div class="rating-radio">
+                  <input class="rating-radio" id="rating1${bookmark.id}" type="radio" name="rating${bookmark.id}" value="1"${(bookmark.rating === 1) ? ' checked' : ''}><label for="rating1">1</label>
+                  <input class="rating-radio" id="rating2${bookmark.id}" type="radio" name="rating${bookmark.id}" value="2"${(bookmark.rating === 2) ? ' checked' : ''}><label for="rating2">2</label>
+                  <input class="rating-radio" id="rating3${bookmark.id}" type="radio" name="rating${bookmark.id}" value="3"${(bookmark.rating === 3) ? ' checked' : ''}><label for="rating3">3</label>
+                  <input class="rating-radio" id="rating4${bookmark.id}" type="radio" name="rating${bookmark.id}" value="4"${(bookmark.rating === 4) ? ' checked' : ''}><label for="rating4">4</label>
+                  <input class="rating-radio" id="rating5${bookmark.id}" type="radio" name="rating${bookmark.id}" value="5"${(bookmark.rating === 5) ? ' checked' : ''}><label for="rating5">5</label>
+                </div>
+                    <div class="link-del-buttons edit-mode-del-link-buttons">
+                        <span class="edit-box"><i class="far fa-edit"></i></span>
+              </form>
+                        <a href="${bookmark.url}" target="_blank"><button class="link-button" name="link-button" disabled>Link to Page</button></a>
+                        <button class="delete-button" name="button" disabled>Delete</button>
+                    </div>
+                </div>
+            </li>`;
+  };
+
   const render = function(){
     let header = (store.addFormDisplayed) ? generateAddItemHeader() : generateDefaultHeader();
     let currentStore = (store.ratingFilter === 'all') ? store.bookmarks : store.bookmarks.filter(obj => obj.rating >= store.ratingFilter);
     let bookmarkItems = currentStore.map(bookmark => {
-      return bookmark.expanded ? generateExpandedBookmarkItem(bookmark) : generateDefaultBookmarkItem(bookmark);
+      if (bookmark.expanded) {
+        if (bookmark.editMode) {
+          return generateEditBookmarkItem(bookmark);
+        } else {
+          return generateExpandedBookmarkItem(bookmark);
+        }
+      } else {
+        return generateDefaultBookmarkItem(bookmark);
+      }
     });
     $('.add-and-filter-heading').html(header);
     $('.bookmark-list').html(bookmarkItems);
@@ -101,7 +132,6 @@ const bookmarks = (function(){
       const newRating = $('input[type="radio"][name="rating"]:checked').val();
 
       api.createBookmark(newTitle, newUrl, newDesc, newRating, function(response){
-        response.expanded = false;
         store.addBookmark(response);
         store.toggleAddFormDisplayed();
         render();
@@ -120,18 +150,66 @@ const bookmarks = (function(){
   const handleExpandItem = function(){
     $('.bookmark-list').on('click', '.bookmark-item', function(event){
       const bookmarkId = findIdFromElement(event.currentTarget);
-      store.toggleExpand(bookmarkId);
-      render();
+      const currentBookmark = store.bookmarks.find(bookmark => bookmarkId === bookmark.id);
+      if (!currentBookmark.editMode) {
+        store.toggleExpand(bookmarkId);
+        render();
+      }
     });
   };
 
   const handleExpandItemForKeyboardUsers = function(){
     $('.bookmark-list').on('keypress', '.bookmark-item', function(event){
       const bookmarkId = findIdFromElement(event.currentTarget);
-      store.toggleExpand(bookmarkId);
-      render();
+      const currentBookmark = store.bookmarks.find(bookmark => bookmarkId === bookmark.id);
+      if (!currentBookmark.editMode) {
+        store.toggleExpand(bookmarkId);
+        render();
+      }
     });
   };
+  //  edit items
+
+  const collectUserEditData = function(id){
+    const title = $(`#title${id}`).val();
+    const desc = $(`#desc${id}`).val();
+    const rating = $(`input[type="radio"][name="rating${id}"]:checked`).val();
+
+    return {title, desc, rating: Number(rating)};
+  };
+
+  const handleToggleEditMode = function(){
+    $('.bookmark-list').on('click', '.edit-box', function(event){
+      const bookmarkId = findIdFromElement(event.currentTarget);
+      const currentBookmark = store.bookmarks.find(obj => obj.id === bookmarkId);
+      if (currentBookmark.editMode){
+        const updatedBookmark = collectUserEditData(bookmarkId);
+        api.updateBookmark(bookmarkId, updatedBookmark);
+        store.updateBookmark(bookmarkId, updatedBookmark);
+        store.toggleEdit(bookmarkId);
+        store.toggleExpand(bookmarkId);
+        render();
+      } else {
+        store.toggleEdit(bookmarkId);
+        render();
+      }
+    });
+  };
+
+  const handleSubmitEdit = function(){
+    $('.bookmark-list').on('keyup', '.edit-form', function(event){
+      const bookmarkId = findIdFromElement(event.currentTarget);
+
+      const title = $(`#title${bookmarkId}`).val();
+      const desc = $(`#desc${bookmarkId}`).val();
+      const rating = $(`input[type="radio"][name="rating${bookmarkId}"]:checked`).val();
+
+      const updatedBookmark = {title, desc, rating: Number(rating)};
+      store.updateBookmark(bookmarkId, updatedBookmark);
+    });
+  };
+
+  // could add a change event listener to fix radio switch in edit mode bug
 
   //   delete items
 
@@ -172,6 +250,8 @@ const bookmarks = (function(){
     handleCancelAdd();
     handleAddBookmarks();
     handleExpandItem();
+    handleToggleEditMode();
+    handleSubmitEdit();
     handleDeleteBookmark();
     handleRatingFilter();
     handleExpandItemForKeyboardUsers();

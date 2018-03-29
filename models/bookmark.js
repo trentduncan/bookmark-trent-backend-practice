@@ -7,7 +7,8 @@ const bookmarkSchema = new mongoose.Schema({
   desc: { type: String },
   url: {type: String, required: true },
   rating: {type: Number, min: 1, max: 5},
-  expanded: {type: Boolean, default: false}
+  expanded: {type: Boolean, default: false},
+  editMode: {type: Boolean, default: false}
 });
 
 bookmarkSchema.set('toObject', {

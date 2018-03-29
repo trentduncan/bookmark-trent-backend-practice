@@ -88,6 +88,7 @@
   .link-del-buttons button {
     font-size: 14px;
     font-weight: bold;
+    color: black;
   }
 
   .delete-button {
@@ -109,6 +110,11 @@
     display: inline-block;
     font-family: 'Lora', serif;
     font-size: 20px;
+    margin-top: 6px;
+  }
+
+  .link-del-buttons.edit-mode-del-link-buttons {
+    width: 293px;
   }
 
 
@@ -129,6 +135,7 @@
     border: 2px solid rgb(0, 0, 0);
     border-radius: 12px;
     font-family: 'Lora', serif;
+    background-color: #fffae6;
   }
   
 
@@ -147,7 +154,7 @@
   }
 
   .input-text {
-    width: 500px;
+    width: 496px;
     font-size: 20px;
     font-family: 'Lora', serif;
     background-color: #fffae6;
